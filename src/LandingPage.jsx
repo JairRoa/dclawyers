@@ -18,16 +18,6 @@ const GlobalStyle = createGlobalStyle`
   html {
     font-size: 16px;
   }
-  @media (max-width: 768px) {
-    html {
-      font-size: 16px; /* Texto 12.5% más grande en tablet/pequeño */
-    }
-  }
-  @media (max-width: 480px) {
-    html {
-      font-size: 16px; /* Texto 25% más grande en móvil pequeño */
-    }
-  }
 
   body {
     font-family: 'Barlow Condensed', sans-serif;
@@ -49,7 +39,7 @@ const Hero = styled.section`
   padding: 4rem 2rem;
   background: url('/img/background/justice1.png') center/cover no-repeat;
   background-size: cover;
-  min-height: 70vh; /* Altura reducida para no ocupar 100vh */
+  min-height: 70vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -61,6 +51,13 @@ const Hero = styled.section`
     inset: 0;
     background-color: rgba(15, 24, 32, 0.6);
     z-index: 0;
+  }
+
+  @media (max-width: 768px) {
+    padding: 3rem 1.5rem;
+  }
+  @media (max-width: 480px) {
+    padding: 2.5rem 1rem;
   }
 `;
 
@@ -77,7 +74,7 @@ const HeroTitle = styled.h2`
   line-height: 1.2;
 
   @media (max-width: 768px) {
-    font-size: 3.6rem; /* 20% más grande */
+    font-size: 3.6rem;
   }
   @media (max-width: 480px) {
     font-size: 4rem;
@@ -192,7 +189,83 @@ const FeatureText = styled.p`
   }
 `;
 
-// 4) Sección de Contacto
+// 4) Sección de Video local
+const VideoSection = styled.section`
+  background: #0f1820;
+  padding: 2rem 2rem;       /* Reducción del espacio superior */
+  text-align: center;
+
+  @media (max-width: 768px) {
+    padding: 1.5rem 1rem;
+  }
+  @media (max-width: 480px) {
+    padding: 1rem 0.5rem;
+  }
+`;
+
+const VideoTitle = styled.h2`
+  color: #fff;
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+
+  @media (max-width: 768px) {
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
+  }
+  @media (max-width: 480px) {
+    font-size: 3rem;
+    margin-bottom: 0.8rem;
+  }
+`;
+
+const VideoWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+
+  video {
+    width: 100%;
+    max-width: 300px;       /* Limita el ancho en pantallas grandes */
+    height: auto;
+    border-radius: 8px;
+
+    @media (max-width: 1024px) {
+      max-width: 90%;
+    }
+    @media (max-width: 768px) {
+      max-width: 100%;
+    }
+  }
+`;
+
+const MoreButton = styled.a`
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.75rem 2rem;
+  background: #fab521;
+  color: #0f1820;
+  text-decoration: none;
+  font-weight: 700;
+  border-radius: 6px;
+  transition: background 0.3s ease, transform 0.2s ease;
+  font-size: 1rem;
+
+  &:hover {
+    background: #ab182d;
+    transform: scale(1.05);
+  }
+
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
+    padding: 1rem 2.5rem;
+  }
+  @media (max-width: 480px) {
+    font-size: 1.4rem;
+    padding: 1.2rem 3rem;
+  }
+`;
+
+// 5) Sección de Contacto
 const ContactSection = styled.section`
   background: #1a2430;
   padding: 4rem 2rem;
@@ -291,11 +364,11 @@ export default function LandingPage() {
       {/* Hero */}
       <Hero>
         <HeroContent>
-          <HeroTitle>Welcome to Attorna</HeroTitle>
+          <HeroTitle>Bienvenido a DC Lawyers Associates</HeroTitle>
           <HeroSubtitle>
-            We are a leading law firm in financial & business industry. With more than 20 years of experience.
+            "Defendemos lo justo. A tu lado, hasta la última instancia."
           </HeroSubtitle>
-          <CTAButton href="#contact">Contact Now</CTAButton>
+          <CTAButton href="#contact">Contáctanos</CTAButton>
         </HeroContent>
       </Hero>
 
@@ -303,20 +376,45 @@ export default function LandingPage() {
       <Features>
         <FeatureCard>
           <FeatureIcon>🏆</FeatureIcon>
-          <FeatureTitle>2018 Winning Award</FeatureTitle>
-          <FeatureText>Far far away, behind the word mountains...</FeatureText>
+          <FeatureTitle>+2000</FeatureTitle>
+          <FeatureText>Casos llevados de forma exitosa.</FeatureText>
         </FeatureCard>
         <FeatureCard>
           <FeatureIcon>🔒</FeatureIcon>
-          <FeatureTitle>Private</FeatureTitle>
-          <FeatureText>Far far away, behind the word mountains...</FeatureText>
+          <FeatureTitle>Confianza</FeatureTitle>
+          <FeatureText>
+            Nuestros clientes están seguros de que estarán bien representados.
+          </FeatureText>
         </FeatureCard>
         <FeatureCard>
           <FeatureIcon>⚖️</FeatureIcon>
-          <FeatureTitle>Legal Protection</FeatureTitle>
-          <FeatureText>Far far away, behind the word mountains...</FeatureText>
+          <FeatureTitle>Protección Legal</FeatureTitle>
+          <FeatureText>
+            Expertos en diversas ramas del Derecho para darte una protección de
+            360°.
+          </FeatureText>
         </FeatureCard>
       </Features>
+
+      {/* Video local (demanda.mp4) */}
+      <VideoSection>
+        <VideoTitle>Video</VideoTitle>
+        <VideoWrapper>
+          <video
+            src="/img/video/demanda.mp4"
+            controls
+            autoPlay
+            muted={false}
+          />
+        </VideoWrapper>
+        <MoreButton
+          href="https://www.instagram.com/dc_abogados_soluciones/?hl=es"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Ver más
+        </MoreButton>
+      </VideoSection>
 
       {/* Contacto */}
       <ContactSection id="contact">
