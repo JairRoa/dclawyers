@@ -5,12 +5,12 @@ import styled from 'styled-components';
 // 1) Paleta de colores
 const palette = {
   dark: '#0f1820',
+  text: '#fff',
   highlight: '#fab521',
-  accent: '#ab182d',
-  text: '#fff'
+  accent: '#ab182d'
 };
 
-// 2) Listado de páginas (key debe coincidir con currentPage)
+// 2) Listado de páginas y rutas
 const ALL_PAGES = [
   { key: 'Home', path: '/' },
   { key: 'Pages', path: '/pages' },
@@ -21,111 +21,139 @@ const ALL_PAGES = [
   { key: 'Features', path: '/features' }
 ];
 
-// 3) Styled‐components
+// 3) Styled-components
 
-// Contenedor principal del Navbar
+// Contenedor general del Navbar
 const NavContainer = styled.nav`
   width: 100%;
   background: ${palette.dark};
-  padding: 0.5rem 2rem;
+  padding: 1rem 2rem;
   box-sizing: border-box;
-  position: relative;
-  z-index: 1000;
 
-  @media (max-width: 768px) {
-    padding: 0.5rem 1rem;
+  @media (max-width: 800px) {
+    padding: 0.75rem 1rem;
   }
 `;
 
-// Capa interna para centrar/espaciar logo + hamburger o enlaces
+// Interno que alinea logo y burger/menu
 const NavInner = styled.div`
   max-width: 1200px;
   margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: relative;
 
-  @media (max-width: 768px) {
-    /* En móviles, centrar *solo* el logo y el ícono hamburguesa */
-    justify-content: center;
+  @media (max-width: 800px) {
+    justify-content: flex-start; /* Logo a la izquierda */
   }
 `;
 
-// Logo
+// Logo (izquierda) con tamaño aumentado
 const LogoImg = styled.img`
-  height: 50px;
+  height: 60px;
 
-  @media (max-width: 768px) {
-    height: 45px;
+  @media (max-width: 1024px) {
+    height: 55px;
+  }
+  @media (max-width: 800px) {
+    height: 50px;
   }
   @media (max-width: 480px) {
-    height: 40px;
+    height: 45px;
   }
 `;
 
-// Botón hamburguesa
+// Botón hamburguesa (aparece en ≤800px)
 const BurgerButton = styled.div`
-  display: none;       /* Solo visible en móviles (≤768px) */
-  cursor: pointer;
-  z-index: 1100;
+  display: none; /* Oculto en pantallas grandes */
 
-  div {
-    width: 25px;
-    height: 3px;
-    background-color: ${palette.text};
-    margin: 4px 0;
-    transition: all 0.3s ease;
-  }
-
-  @media (max-width: 768px) {
+  @media (max-width: 800px) {
     display: block;
     position: absolute;
-    right: 1rem;       /* derecha antes de la media query */
-    /* Para centrarlo, movemos right / left */
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    z-index: 1100;
+
+    div {
+      width: 30px;
+      height: 4px;
+      background-color: ${palette.text};
+      margin: 5px 0;
+      transition: background-color 0.2s ease, transform 0.3s ease;
+    }
+    &:hover div {
+      background-color: ${palette.highlight};
+    }
   }
 `;
 
-// Lista de enlaces de navegación
+// Lista de enlaces
 const NavLinks = styled.ul`
   list-style: none;
-  display: flex;
-  gap: 1.5rem;
   margin: 0;
   padding: 0;
 
-  li a {
-    text-decoration: none;
-    color: ${palette.text};
-    font-weight: 500;
-    transition: color 0.2s ease;
-    &:hover {
-      color: ${palette.highlight};
-    }
-  }
-
-  @media (max-width: 768px) {
-    /* En móviles queda oculto si open=false, y visible en columna si open=true */
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;           /* Cubrir toda la pantalla */
-    background: ${palette.dark};
+  /* 1) Móvil (≤800px): oculto por default, visible si open=true */
+  @media (max-width: 800px) {
+    display: ${(props) => (props.open ? 'flex' : 'none')};
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
-    display: ${({ open }) => (open ? 'flex' : 'none')};
-    padding: 0;
+    position: fixed;          /* <-- Aquí cambiamos a fixed */
+    top: 0;                   /* para cubrir TODO el viewport */
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: ${palette.dark};
+    z-index: 1000;
 
     li {
-      margin: 1rem 0;
-
+      margin: 1.5rem 0;
       a {
-        font-size: 1.5rem;   /* Texto grande para móvil */
+        text-decoration: none;
+        color: ${palette.text};
+        font-size: 1.75rem;   /* Muy grande en móvil */
+        font-weight: 600;
+        transition: color 0.2s ease;
+        &:hover {
+          color: ${palette.highlight};
+        }
       }
+    }
+  }
+
+  /* 2) Pantallas ≥801px: menú horizontal */
+  @media (min-width: 801px) {
+    display: flex !important;  /* fuerza que en desktop siempre esté flex */
+    flex-direction: row;
+    gap: 2rem;
+    align-items: center;
+    position: static;
+    height: auto;
+    background: none;
+
+    li {
+      margin: 0;
+      a {
+        font-size: 1.25rem;  /* 20px aprox. en desktop */
+        text-decoration: none;
+        color: ${palette.text};
+        font-weight: 600;
+        transition: color 0.2s ease;
+        &:hover {
+          color: ${palette.highlight};
+        }
+      }
+    }
+  }
+
+  /* 3) Tablet mediano: 801px ≤ ancho ≤ 1024px, sube un poco la fuente */
+  @media (min-width: 801px) and (max-width: 1024px) {
+    li a {
+      font-size: 1.3rem; /* ~20.8px */
     }
   }
 `;
@@ -133,10 +161,10 @@ const NavLinks = styled.ul`
 export default function Navbar({ currentPage }) {
   const [open, setOpen] = useState(false);
 
-  // Filtrar la página actual de la lista
-  const visiblePages = ALL_PAGES.filter(page => page.key !== currentPage);
+  // Filtramos la página actual
+  const visiblePages = ALL_PAGES.filter((page) => page.key !== currentPage);
 
-  // Cierra menú al hacer clic en un enlace (móvil)
+  // Al hacer clic en un enlace en móvil, cerramos el menú
   const handleLinkClick = () => {
     setOpen(false);
   };
@@ -144,21 +172,31 @@ export default function Navbar({ currentPage }) {
   return (
     <NavContainer>
       <NavInner>
-        {/* Logo: ajusta el href si tu Home es otra ruta */}
-        <a href="/">
+        {/* Logo a la izquierda */}
+        <a href="/" style={{ display: 'flex', alignItems: 'center' }}>
           <LogoImg src="/img/logos/vertical.png" alt="DC Lawyers Logo" />
         </a>
 
-        {/* Botón hamburguesa (solo en ≤768px) */}
-        <BurgerButton onClick={() => setOpen(prev => !prev)}>
-          <div style={{ transform: open ? 'rotate(45deg) translate(5px, 5px)' : 'none' }} />
+        {/* Burger (solo aparece en ≤800px) */}
+        <BurgerButton onClick={() => setOpen((prev) => !prev)}>
+          <div
+            style={{
+              transform: open ? 'rotate(45deg) translate(5px, 5px)' : 'none'
+            }}
+          />
           <div style={{ opacity: open ? 0 : 1 }} />
-          <div style={{ transform: open ? 'rotate(-45deg) translate(5px, -5px)' : 'none' }} />
+          <div
+            style={{
+              transform: open
+                ? 'rotate(-45deg) translate(5px, -5px)'
+                : 'none'
+            }}
+          />
         </BurgerButton>
 
         {/* Enlaces de navegación */}
         <NavLinks open={open}>
-          {visiblePages.map(page => (
+          {visiblePages.map((page) => (
             <li key={page.key}>
               <a href={page.path} onClick={handleLinkClick}>
                 {page.key}

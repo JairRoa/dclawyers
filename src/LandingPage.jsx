@@ -1,9 +1,9 @@
 // src/LandingPage.jsx
 import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
-import Navbar from './components/Navbar'; // Ajusta la ruta si tu carpeta difiere
+import Navbar from './components/Navbar'; // Ajusta la ruta si difiere
 
-// 1) Global styles con ajustes de tamaño responsivo
+// 1) Global styles con ajustes de tamaño de fuente responsivo
 const GlobalStyle = createGlobalStyle`
   /* Reset básico */
   *, *::before, *::after {
@@ -14,7 +14,21 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
   }
 
-  /* Fuente principal y colores base */
+  /* Ajuste de fuente base */
+  html {
+    font-size: 16px;
+  }
+  @media (max-width: 768px) {
+    html {
+      font-size: 18px; /* Texto 12.5% más grande en tablet/pequeño */
+    }
+  }
+  @media (max-width: 480px) {
+    html {
+      font-size: 20px; /* Texto 25% más grande en móvil pequeño */
+    }
+  }
+
   body {
     font-family: 'Barlow Condensed', sans-serif;
     background-color: #0f1820;
@@ -22,41 +36,25 @@ const GlobalStyle = createGlobalStyle`
     overflow-x: hidden;
   }
 
-  /* Ajuste de tamaño base de fuente para escalado en móvil */
-  html {
-    font-size: 16px;
-  }
-  @media (max-width: 768px) {
-    html {
-      font-size: 18px; /* 12.5% más grande en tablet/pequeño */
-    }
-  }
-  @media (max-width: 480px) {
-    html {
-      font-size: 20px; /* 25% más grande en móvil pequeño */
-    }
-  }
-
-  /* Estilo para el ancla del contacto */
+  /* Ancla de contacto para desplazamiento */
   #contact {
-    scroll-margin-top: 80px; /* evita que el contenido se oculte tras el navbar */
+    scroll-margin-top: 80px;
   }
 `;
 
-// 2) Sección Hero
+// 2) Sección Hero con imagen de fondo reducida
 const Hero = styled.section`
+  position: relative;
   text-align: center;
   padding: 4rem 2rem;
   background: url('/img/background/justice1.png') center/cover no-repeat;
   background-size: cover;
-  min-height: 100vh; /* que ocupe toda la pantalla */
+  min-height: 70vh; /* Altura reducida para no ocupar 100vh */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
-  /* Overlay oscurecido para mejorar contraste */
-  position: relative;
   &::before {
     content: '';
     position: absolute;
@@ -79,7 +77,7 @@ const HeroTitle = styled.h2`
   line-height: 1.2;
 
   @media (max-width: 768px) {
-    font-size: 3.6rem; /* 20% más grande que 3rem */
+    font-size: 3.6rem; /* 20% más grande */
   }
   @media (max-width: 480px) {
     font-size: 4rem;
@@ -93,7 +91,7 @@ const HeroSubtitle = styled.p`
   line-height: 1.4;
 
   @media (max-width: 768px) {
-    font-size: 1.44rem; /* 20% más grande */
+    font-size: 1.44rem;
   }
   @media (max-width: 480px) {
     font-size: 1.6rem;
@@ -109,6 +107,7 @@ const CTAButton = styled.a`
   font-weight: 700;
   border-radius: 6px;
   transition: background 0.3s ease, transform 0.2s ease;
+  font-size: 1rem;
 
   &:hover {
     background: #ab182d;
@@ -116,7 +115,7 @@ const CTAButton = styled.a`
   }
 
   @media (max-width: 768px) {
-    font-size: 1.2rem; /* 20% más grande */
+    font-size: 1.2rem;
     padding: 1.2rem 3rem;
   }
   @media (max-width: 480px) {
@@ -129,7 +128,6 @@ const CTAButton = styled.a`
 const Features = styled.section`
   background: #0f1820;
   padding: 4rem 2rem;
-
   display: flex;
   justify-content: space-around;
   gap: 2rem;
@@ -194,7 +192,7 @@ const FeatureText = styled.p`
   }
 `;
 
-// 4) Sección de Contacto simple
+// 4) Sección de Contacto
 const ContactSection = styled.section`
   background: #1a2430;
   padding: 4rem 2rem;
@@ -287,10 +285,10 @@ export default function LandingPage() {
     <>
       <GlobalStyle />
 
-      {/* 1) Navbar común en todas las páginas, currentPage="Home" */}
+      {/* Navbar común, currentPage="Home" */}
       <Navbar currentPage="Home" />
 
-      {/* 2) Hero */}
+      {/* Hero */}
       <Hero>
         <HeroContent>
           <HeroTitle>Welcome to Attorna</HeroTitle>
@@ -301,7 +299,7 @@ export default function LandingPage() {
         </HeroContent>
       </Hero>
 
-      {/* 3) Sección de Features */}
+      {/* Features */}
       <Features>
         <FeatureCard>
           <FeatureIcon>🏆</FeatureIcon>
@@ -320,7 +318,7 @@ export default function LandingPage() {
         </FeatureCard>
       </Features>
 
-      {/* 4) Sección de Contacto */}
+      {/* Contacto */}
       <ContactSection id="contact">
         <ContactContainer>
           <ContactTitle>Contáctanos</ContactTitle>
