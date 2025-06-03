@@ -102,8 +102,8 @@ const NavLinks = styled.ul`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    position: fixed;          /* <-- Aquí cambiamos a fixed */
-    top: 0;                   /* para cubrir TODO el viewport */
+    position: fixed;          /* Cubre todo el viewport */
+    top: 0;
     left: 0;
     width: 100%;
     height: 100vh;
@@ -111,11 +111,11 @@ const NavLinks = styled.ul`
     z-index: 1000;
 
     li {
-      margin: 1.5rem 0;
+      margin: 1rem 0; /* Reducido de 1.5rem a 1rem */
       a {
         text-decoration: none;
         color: ${palette.text};
-        font-size: 1.75rem;   /* Muy grande en móvil */
+        font-size: 1.4rem;   /* Reducido de 1.75rem a 1.4rem */
         font-weight: 600;
         transition: color 0.2s ease;
         &:hover {
@@ -138,7 +138,7 @@ const NavLinks = styled.ul`
     li {
       margin: 0;
       a {
-        font-size: 1.25rem;  /* 20px aprox. en desktop */
+        font-size: 1.25rem;  /* 20px con html=16px */
         text-decoration: none;
         color: ${palette.text};
         font-weight: 600;
@@ -150,7 +150,7 @@ const NavLinks = styled.ul`
     }
   }
 
-  /* 3) Tablet mediano: 801px ≤ ancho ≤ 1024px, sube un poco la fuente */
+  /* 3) Tablet mediano: 801px ≤ ancho ≤ 1024px */
   @media (min-width: 801px) and (max-width: 1024px) {
     li a {
       font-size: 1.3rem; /* ~20.8px */

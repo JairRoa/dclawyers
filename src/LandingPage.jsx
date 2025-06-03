@@ -20,12 +20,12 @@ const GlobalStyle = createGlobalStyle`
   }
   @media (max-width: 768px) {
     html {
-      font-size: 18px; /* Texto 12.5% más grande en tablet/pequeño */
+      font-size: 16px; /* Texto 12.5% más grande en tablet/pequeño */
     }
   }
   @media (max-width: 480px) {
     html {
-      font-size: 20px; /* Texto 25% más grande en móvil pequeño */
+      font-size: 16px; /* Texto 25% más grande en móvil pequeño */
     }
   }
 
