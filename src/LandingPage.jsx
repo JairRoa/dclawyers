@@ -1,5 +1,6 @@
 // src/LandingPage.jsx
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import styled, { createGlobalStyle } from 'styled-components';
 import Navbar from './components/Navbar';
 
@@ -385,8 +386,87 @@ const EmailIcon = () => (
 export default function LandingPage() {
   return (
     <>
+      {/* ******************************** */}
+      {/*  COLOCAMOS AQUI TODOS LOS META TAGS PARA SEO  */}
+      {/* ******************************** */}
+      <Helmet>
+        <title>DC Lawyers Associates – Bufete de Abogados en [Tu Ciudad]</title>
+        <meta
+          name="description"
+          content="DC Lawyers Associates SAS: Bufete de abogados en [Tu Ciudad], especializado en derecho civil, penal y laboral. +2.000 casos exitosos. ¡Contáctanos hoy!"
+        />
+        <meta
+          name="keywords"
+          content="abogados, bufete abogados, derecho civil, defensa penal, asesoría laboral, consultor jurídico, [Tu Ciudad]"
+        />
+        <link rel="canonical" href="https://www.tusitio.com/" />
+
+        {/* Open Graph */}
+        <meta
+          property="og:title"
+          content="DC Lawyers Associates – Bufete de Abogados en [Tu Ciudad]"
+        />
+        <meta
+          property="og:description"
+          content="Especialistas en derecho civil, penal y laboral. +2.000 casos exitosos. Agenda tu consulta gratis."
+        />
+        <meta
+          property="og:image"
+          content="https://www.tusitio.com/img/logos/social-preview.jpg"
+        />
+        <meta property="og:url" content="https://www.tusitio.com/" />
+        <meta property="og:type" content="website" />
+
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:title"
+          content="DC Lawyers Associates – Bufete de Abogados en [Tu Ciudad]"
+        />
+        <meta
+          name="twitter:description"
+          content="Expertos en derecho civil, penal y laboral. +2.000 casos exitosos. ¡Contáctanos!"
+        />
+        <meta
+          name="twitter:image"
+          content="https://www.tusitio.com/img/logos/twitter-preview.jpg"
+        />
+
+        {/* Meta básicos */}
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta charSet="UTF-8" />
+        <meta name="robots" content="index, follow" />
+
+        {/* JSON-LD: LegalService */}
+        <script type="application/ld+json">
+          {`
+          {
+            "@context": "https://schema.org",
+            "@type": "LegalService",
+            "name": "DC Lawyers Associates SAS",
+            "url": "https://www.tusitio.com/",
+            "logo": "https://www.tusitio.com/img/logos/vertical.png",
+            "description": "Bufete de abogados en [Tu Ciudad] especializado en derecho civil, penal y laboral. +2.000 casos exitosos.",
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "telephone": "+57 3218581603",
+              "contactType": "Customer Service",
+              "email": "abogadosdc@outlook.com"
+            },
+            "sameAs": [
+              "https://www.facebook.com/dc_abogados_soluciones",
+              "https://www.instagram.com/dc_abogados_soluciones",
+              "https://www.linkedin.com/company/dc-lawyers-associates",
+              "https://twitter.com/dc_abogados"
+            ]
+          }
+        `}
+        </script>
+      </Helmet>
+
+      {/* ******************************** */}
       <GlobalStyle />
-      <Navbar currentPage="Home" />
+      <Navbar currentPage="Inicio" />
 
       {/* Hero */}
       <Hero>
@@ -394,8 +474,15 @@ export default function LandingPage() {
           <HeroTitle>Bienvenido a DC Lawyers Associates</HeroTitle>
           <HeroSubtitle>
             "Defendemos lo justo. A tu lado, hasta la última instancia."
-          </HeroSubtitle>
-          <CTAButton href="https://wa.me/573224142500?text=Hola%20Abogados%20DC%20requiero%20asesor%C3%ADa" target="_blank">Contáctanos</CTAButton>
+          </HeroSubtitle
+          >
+          <CTAButton
+            href="https://wa.me/573218581603?text=Hola%20Abogados%20DC%20requiero%20asesoría"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Contáctanos
+          </CTAButton>
         </HeroContent>
       </Hero>
 
@@ -471,7 +558,7 @@ export default function LandingPage() {
             <i className="fab fa-facebook-f" />
           </SocialIcon>
           <SocialIcon
-            href="https://www.tiktok.com/@dfmoragrimaldo"
+            href="https://www.tiktok.com/@dc_abogados_soluciones"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="TikTok"
