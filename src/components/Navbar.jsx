@@ -1,6 +1,7 @@
 // src/components/Navbar.jsx
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useLocation } from 'react-router-dom';
 
 // 1) Paleta de colores
 const palette = {
@@ -12,12 +13,12 @@ const palette = {
 
 // 2) Listado de páginas y rutas
 const ALL_PAGES = [
-  { key: 'Inicio', path: '/' },
-  { key: 'Servicios', path: '/servicios' },
+  { key: 'Inicio',        path: '/' },
+  { key: 'Servicios',     path: '/servicios' },
   { key: 'Quienes somos', path: '/biografia' },
-  { key: 'Blog', path: '/blog' },
-  { key: 'Galería', path: '/galeria' },
-  { key: 'Contacto', path: '/contacto' }
+  { key: 'Blog',          path: '/blog' },
+  { key: 'Galería',       path: '/galeria' },
+  { key: 'Contacto',      path: '/contacto' }
 ];
 
 // 3) Styled-components
@@ -26,7 +27,7 @@ const ALL_PAGES = [
 const NavContainer = styled.nav`
   width: 100%;
   background: ${palette.dark};
-  padding: 0.75rem 2rem;      /* se redujo un poco el padding superior */
+  padding: 0.75rem 2rem;       /* un pelín de padding vertical */
   box-sizing: border-box;
 
   /* Empuja 50px hacia abajo el contenido siguiente */
@@ -47,7 +48,7 @@ const NavInner = styled.div`
   position: relative;
 
   @media (max-width: 800px) {
-    justify-content: flex-start; /* Logo a la izquierda en móvil */
+    justify-content: flex-start; /* Logo a la izquierda */
   }
 `;
 
@@ -68,7 +69,7 @@ const LogoImg = styled.img`
 
 // Botón hamburguesa (aparece en ≤800px)
 const BurgerButton = styled.div`
-  display: none; /* Oculto en pantallas grandes */
+  display: none; /* oculto en pantallas grandes */
 
   @media (max-width: 800px) {
     display: block;
@@ -79,7 +80,6 @@ const BurgerButton = styled.div`
     cursor: pointer;
     z-index: 1100;
 
-    /* Tres barras internas */
     div {
       width: 30px;
       height: 4px;
@@ -105,7 +105,7 @@ const NavLinks = styled.ul`
     text-decoration: none;
     color: ${palette.text};
     font-size: 1.25rem;
-    font-weight: 400;
+    font-weight: 600;
     transition: color 0.2s ease;
 
     &:hover {
@@ -120,7 +120,7 @@ const NavLinks = styled.ul`
   }
 
   @media (max-width: 800px) {
-    /* En móvil, posición fija completa si open=true */
+    /* En móvil, ocupa toda la pantalla cuando open=true */
     position: absolute;
     top: 0;
     left: 0;
@@ -133,11 +133,12 @@ const NavLinks = styled.ul`
     padding: 0;
     display: ${props => (props.open ? 'flex' : 'none')};
 
-    /* Para que quede siempre encima */
+    /* Nos aseguramos que quede encima de todo lo demás */
     z-index: 1050;
 
+    /* Reducimos el espacio vertical entre cada item en móvil */
     li {
-      margin: 1.5rem 0;
+      margin: 0.8rem 0;
 
       a {
         font-size: 1.75rem;
@@ -146,14 +147,16 @@ const NavLinks = styled.ul`
   }
 `;
 
-// Componente principal
-export default function Navbar({ currentPage }) {
+export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const location = useLocation();
 
-  // Filtrar la página actual para que no aparezca como enlace
-  const visiblePages = ALL_PAGES.filter(page => page.key !== currentPage);
+  // Filtramos comparando la ruta actual con page.path
+  const visiblePages = ALL_PAGES.filter(
+    (page) => page.path !== location.pathname
+  );
 
-  // Cierra el menú en móvil cuando se hace clic en un enlace
+  // Cuando se pulsa un enlace en móvil, cerramos el menú
   const handleLinkClick = () => {
     setOpen(false);
   };
@@ -167,10 +170,10 @@ export default function Navbar({ currentPage }) {
         </a>
 
         {/* Burger centrado en móvil (≤800px) */}
-        <BurgerButton onClick={() => setOpen(prev => !prev)}>
+        <BurgerButton onClick={() => setOpen((prev) => !prev)}>
           <div
             style={{
-              transform: open ? 'rotate(45deg) translate(5px, 5px)' : 'none'
+              transform: open ? 'rotate(45deg) translate(5px, 5px)' : 'none',
             }}
           />
           <div style={{ opacity: open ? 0 : 1 }} />
@@ -178,14 +181,14 @@ export default function Navbar({ currentPage }) {
             style={{
               transform: open
                 ? 'rotate(-45deg) translate(5px, -5px)'
-                : 'none'
+                : 'none',
             }}
           />
         </BurgerButton>
 
         {/* Enlaces de navegación */}
         <NavLinks open={open}>
-          {visiblePages.map(page => (
+          {visiblePages.map((page) => (
             <li key={page.key}>
               <a href={page.path} onClick={handleLinkClick}>
                 {page.key}
