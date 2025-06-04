@@ -1,6 +1,6 @@
 // src/LandingPage.jsx
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
+import { Helmet } from 'react-helmet';
 import styled, { createGlobalStyle } from 'styled-components';
 import Navbar from './components/Navbar';
 
@@ -474,8 +474,7 @@ export default function LandingPage() {
           <HeroTitle>Bienvenido a DC Lawyers Associates</HeroTitle>
           <HeroSubtitle>
             "Defendemos lo justo. A tu lado, hasta la última instancia."
-          </HeroSubtitle
-          >
+          </HeroSubtitle>
           <CTAButton
             href="https://wa.me/573218581603?text=Hola%20Abogados%20DC%20requiero%20asesoría"
             target="_blank"
