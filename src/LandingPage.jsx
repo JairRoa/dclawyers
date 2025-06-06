@@ -576,7 +576,7 @@ export default function LandingPage() {
 
         <BottomBar>
           DC Lawyers Associates © 2025, página creada por{' '}
-          <a href="/jair-roa-calvo" target="_blank" rel="noopener noreferrer">
+          <a href="https://jair-roa-calvo.netlify.app/" target="_blank" rel="noopener noreferrer">
             Jair Roa Calvo
           </a>
         </BottomBar>

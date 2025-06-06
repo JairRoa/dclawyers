@@ -314,13 +314,13 @@ export default function Servicios() {
       title: 'Asesoría en contratación y reclamación estatal',
       bg: '/img/servicios/servicio10.png',
       description:
-        'Gestionamos licitaciones públicas, revisión de pliegos, presentación de ofertas y seguimiento de reclamaciones ante entidades estatales.'
+        'Gestionamos licitaciones públicas, revisión de pliegos, presentación de ofertas y seguimiento de reclamaciones ante entidades estatales. Somos expertos en Derecho Administrativo.'
     },
     {
       title: 'Defensa penal y litigios penales',
       bg: '/img/servicios/servicio3.png',
       description:
-        'Ofrecemos defensa en casos penales: delitos económicos, crímenes de cuello blanco, violencia intrafamiliar y asesoría en procesos de conciliación penal.'
+        'Acompañamiento en casos penales: delitos económicos, crímenes de cuello blanco, violencia intrafamiliar y asesoría en procesos de conciliación penal.'
     },
     {
       title: 'Asesoría legal integral en derecho civil',
