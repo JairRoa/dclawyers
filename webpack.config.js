@@ -63,14 +63,15 @@ module.exports = {
   devServer: {
     static: {
       directory: path.resolve(__dirname, 'public'),
-      publicPath: '/'
+      publicPath: '/',
+      serveIndex: false      // <— Desactiva el listado de directorios para evitar el URI malformed
     },
     open: true,
     hot: true,
     port: 3000,
 
-    // <-- IMPORTANTE: fuerza que cualquier ruta no existente
-    // pase a index.html para que React Router maneje el enrutado.
+    // Fuerza que cualquier ruta no existente pase a index.html
+    // para que React Router maneje el enrutado SPA sin 404
     historyApiFallback: true
   },
 
