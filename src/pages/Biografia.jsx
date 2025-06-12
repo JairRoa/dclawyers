@@ -1,4 +1,3 @@
-// src/pages/Biografia.jsx
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import styled, { createGlobalStyle } from 'styled-components';
@@ -16,7 +15,7 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-// 2) Layout de la página
+// 2) Layout
 const Container = styled.div`
   max-width: 1200px;
   margin: 2rem auto;
@@ -26,6 +25,7 @@ const Container = styled.div`
     padding: 0 1rem;
   }
 `;
+
 const Title = styled.h1`
   font-size: 2.5rem;
   text-align: center;
@@ -33,6 +33,7 @@ const Title = styled.h1`
   @media (max-width: 768px) { font-size: 2.8rem; }
   @media (max-width: 480px) { font-size: 3rem; }
 `;
+
 const Paragraph = styled.p`
   font-size: 1.2rem;
   line-height: 1.6;
@@ -42,17 +43,15 @@ const Paragraph = styled.p`
   @media (max-width: 480px) { font-size: 1.6rem; }
 `;
 
-// 3) Grid para Secciones Misión y Visión
+// 3) Sections grid
 const SectionsGrid = styled.div`
   display: flex;
   gap: 2rem;
   margin-top: 2rem;
-  @media (max-width: 768px) {
-    flex-direction: column;
-  }
+  @media (max-width: 768px) { flex-direction: column; }
 `;
 
-// 4) Secciones Misión / Visión con fondo de torre
+// 4) Info sections
 const InfoSection = styled.section`
   position: relative;
   flex: 1;
@@ -60,7 +59,6 @@ const InfoSection = styled.section`
   border-radius: 8px;
   overflow: hidden;
   color: #fff;
-
   &::before {
     content: '';
     position: absolute;
@@ -70,10 +68,12 @@ const InfoSection = styled.section`
     z-index: 0;
   }
 `;
+
 const InfoContent = styled.div`
   position: relative;
   z-index: 1;
 `;
+
 const InfoTitle = styled.h2`
   font-size: 2rem;
   margin-bottom: 1rem;
@@ -81,6 +81,7 @@ const InfoTitle = styled.h2`
   @media (max-width: 768px) { font-size: 1.8rem; }
   @media (max-width: 480px) { font-size: 1.6rem; }
 `;
+
 const InfoText = styled.p`
   font-size: 1.1rem;
   line-height: 1.6;
@@ -89,117 +90,85 @@ const InfoText = styled.p`
   @media (max-width: 480px) { font-size: 0.95rem; }
 `;
 
-// 5) Footer (idéntico al de LandingPage)
+// 5) Footer
 const FooterContainer = styled.footer`
   background: #0f1820;
   color: #fff;
-  padding: 1rem 1rem 0.5rem;
+  padding: 1rem;
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-start;
   justify-content: center;
   gap: 3rem;
-  border-top: 10px solid rgba(255, 255, 255, 0.1);
+  border-top: 10px solid rgba(255,255,255,0.1);
   @media (max-width: 768px) {
     flex-direction: column;
-    padding: 0.5rem 1rem 0.25rem;
+    padding: 0.5rem;
     gap: 0.5rem;
-    align-items: center;
   }
 `;
+
 const LeftColumn = styled.div`
-  flex: 0 1 auto;
   text-align: center;
-  margin-top: 20px;
-  @media (min-width: 769px) { margin-right: 4rem; }
-  h3 { margin: 0 0 0.5rem; font-size: 1.5rem; }
-  p {
-    margin: 0.2rem 0;
-    font-size: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    svg { width: 1.2rem; height: 1.2rem; fill: #fab521; }
-  }
+  h3 { margin-bottom: 0.5rem; font-size: 1.5rem; }
+  p { margin: 0.2rem 0; display: flex; align-items: center; gap: 0.5rem; color: #ddd; svg { fill: #fab521; width: 1.2rem; height: 1.2rem; } }
 `;
+
 const RightColumn = styled.div`
-  flex: 0 1 auto;
   display: flex;
   gap: 0.5rem;
-  @media (max-width: 768px) {
-    overflow-x: auto;
-    gap: 0.4rem;
-  }
+  @media (max-width: 768px) { overflow-x: auto; }
 `;
+
 const SocialIcon = styled.a`
   color: #fff;
   font-size: 2rem;
   transition: color 0.2s;
   &:hover { color: #fab521; }
 `;
+
 const BottomBar = styled.div`
   width: 100%;
   text-align: center;
   margin-top: 0.5rem;
   font-size: 0.9rem;
   color: #ccc;
-  a {
-    color: #fab521;
-    text-decoration: none;
-    font-weight: 600;
-    &:hover { color: #fff; }
-  }
+  a { color: #fab521; text-decoration: none; }
 `;
 
-// íconos SVG
-const DocIcon = () => (
-  <svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zM15 3.5V9h4.5L15 3.5zM8 11h8v2H8v-2zm0 4h8v2H8v-2z"/></svg>
-);
-const PhoneIcon = () => (
-  <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.093 15.093 0 0 0 6.59 6.59l1.79-1.79a1 1 0 0 1 .91-.27 11.72 11.72 0 0 0 3.68.59 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.28.2 2.53.58 3.68a1 1 0 0 1-.27.91l-1.79 1.79z"/></svg>
-);
-const EmailIcon = () => (
-  <svg viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 2l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/></svg>
-);
+// Icons
+const PhoneIcon = () => <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.093 15.093 0 0 0 6.59 6.59l1.79-1.79a1 1 0 0 1 .91-.27 11.72 11.72 0 0 0 3.68.59 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.28.2 2.53.58 3.68a1 1 0 0 1-.27.91l-1.79 1.79z"/></svg>;
+const EmailIcon = () => <svg viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 2l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/></svg>;
 
 export default function Biografia() {
   return (
     <>
-      {/* HEAD */}
       <Helmet>
         <title>Quiénes Somos | DC Lawyers Associates</title>
+        <meta name="description" content="Conoce la misión, visión y trayectoria de DC Lawyers Associates." />
         <link rel="icon" href="/img/logos/icon.png" />
       </Helmet>
 
-      {/* GLOBAL & NAV */}
       <GlobalStyle />
       <Navbar currentPage="Quienes somos" />
 
-      {/* CONTENIDO */}
       <Container>
         <Title>Quiénes Somos</Title>
         <Paragraph>
-          DC Lawyers Associates es un despacho de abogados líder en el
-          asesoramiento integral y la representación jurídica en múltiples
-          áreas del Derecho (civil, penal, laboral, mercantil y administrativo).
-          Nuestra firma combina un profundo conocimiento técnico con una visión
-          estratégica orientada a resultados, diseñando soluciones innovadoras,
-          prudentes y adaptadas a las necesidades específicas de cada cliente.
+          DC Lawyers Associates es un despacho líder en asesoría legal integral,
+          con experiencia en derecho civil, penal, laboral, mercantil y
+          administrativo. Combinamos conocimiento técnico y visión estratégica
+          para ofrecer soluciones personalizadas y efectivas.
         </Paragraph>
 
-        {/* MISIÓN & VISIÓN */}
         <SectionsGrid>
           <InfoSection>
             <InfoContent>
               <InfoTitle>Misión</InfoTitle>
               <InfoText>
-                Somos una firma de abogados dedicada a prestar servicios legales
-                de altísima calidad, orientados a defender los derechos
-                constitucionales de nuestros clientes. Diseñamos alternativas
-                legales y soluciones de negocio efectivas, prudentes y
-                oportunas, basadas en un enfoque práctico e innovador,
-                sustentado en la investigación y el conocimiento, que genere
-                relaciones exitosas y duraderas con un costo razonable.
+                Defender los derechos constitucionales de nuestros clientes,
+                brindando servicios legales de alta calidad, basados en
+                innovación, investigación y un enfoque práctico orientado a
+                resultados.
               </InfoText>
             </InfoContent>
           </InfoSection>
@@ -208,44 +177,30 @@ export default function Biografia() {
             <InfoContent>
               <InfoTitle>Visión</InfoTitle>
               <InfoText>
-                Consolidarnos como una de las mejores firmas de abogados a nivel
-                nacional, ofreciendo un apoyo integral que se adapte a las
-                diferentes necesidades legales de nuestros clientes. Previniendo
-                conflictos y resolviendo los existentes con eficiencia, buscamos
-                optimizar recursos y posicionarnos como referentes en la
-                prestación de servicios jurídicos de excelencia.
+                Ser reconocidos a nivel nacional como referencia en servicios
+                jurídicos de excelencia, previniendo y resolviendo conflictos
+                con eficiencia y ética profesional.
               </InfoText>
             </InfoContent>
           </InfoSection>
         </SectionsGrid>
       </Container>
 
-      {/* FOOTER */}
-      <FooterContainer id="footer">
+      <FooterContainer>
         <LeftColumn>
           <h3>DC LAWYERS ASSOCIATES SAS</h3>
           <p><PhoneIcon /> 3218581603</p>
           <p><EmailIcon /> abogadosdc@outlook.com</p>
         </LeftColumn>
         <RightColumn>
-          <SocialIcon href="https://www.instagram.com/dc_abogados_soluciones/?hl=es" aria-label="Instagram">
-            <i className="fab fa-instagram" />
-          </SocialIcon>
-          <SocialIcon href="https://www.facebook.com/dc_abogados_soluciones" aria-label="Facebook">
-            <i className="fab fa-facebook-f" />
-          </SocialIcon>
-          <SocialIcon href="https://www.tiktok.com/@dc_abogados_soluciones" aria-label="TikTok">
-            <i className="fab fa-tiktok" />
-          </SocialIcon>
-          <SocialIcon href="https://www.youtube.com/c/dc_abogados_soluciones" aria-label="YouTube">
-            <i className="fab fa-youtube" />
-          </SocialIcon>
+          <SocialIcon href="https://www.instagram.com/dc_abogados_soluciones/?hl=es"><i className="fab fa-instagram"/></SocialIcon>
+          <SocialIcon href="https://www.facebook.com/dc_abogados_soluciones"><i className="fab fa-facebook-f"/></SocialIcon>
+          <SocialIcon href="https://www.tiktok.com/@dc_abogados_soluciones"><i className="fab fa-tiktok"/></SocialIcon>
+          <SocialIcon href="https://www.youtube.com/c/dc_abogados_soluciones"><i className="fab fa-youtube"/></SocialIcon>
         </RightColumn>
         <BottomBar>
-          DC Lawyers Associates © 2025, página creada por{' '}
-          <a href="/jair-roa-calvo" target="_blank" rel="noopener noreferrer">
-            Jair Roa Calvo
-          </a>
+          DC Lawyers Associates © 2025, creada por{' '}
+          <a href="https://jair-roa-calvo.netlify.app/" target="_blank" rel="noopener noreferrer">Jair Roa Calvo</a>
         </BottomBar>
       </FooterContainer>
     </>

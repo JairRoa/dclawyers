@@ -511,7 +511,7 @@ export default function LandingPage() {
 
       {/* Video */}
       <VideoSection>
-        <VideoTitle>Video</VideoTitle>
+        <VideoTitle>Acompañamiento Legal</VideoTitle>
         <VideoWrapper>
           <video src="/img/video/demanda.mp4" controls muted={false} />
         </VideoWrapper>
