@@ -1,13 +1,11 @@
 // src/pages/Contacto.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import styled, { createGlobalStyle } from 'styled-components';
 import { init, sendForm } from '@emailjs/browser';
 import Navbar from '../components/Navbar';
 
-// Inicializa EmailJS con tu Public Key
-init('epKrRD5PRmq675FeG');
-
+// — Global styles —
 const GlobalStyle = createGlobalStyle`
   *, *::before, *::after { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; }
@@ -19,21 +17,20 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
+// — Styled components —
 const Container = styled.div`
   max-width: 800px;
   margin: 2rem auto;
   padding: 0 1rem;
-  @media (max-width: 768px) { margin: 1.5rem auto; }
+  @media (max-width: 768px){ margin: 1.5rem auto; }
 `;
-
 const Title = styled.h1`
   font-size: 2.5rem;
   text-align: center;
   margin-bottom: 2rem;
-  @media (max-width: 768px) { font-size: 2.8rem; }
-  @media (max-width: 480px) { font-size: 3rem; }
+  @media (max-width: 768px){ font-size: 2.8rem; }
+  @media (max-width: 480px){ font-size: 3rem; }
 `;
-
 const Form = styled.form`
   display: flex;
   flex-direction: column;
@@ -70,7 +67,6 @@ const CheckboxContainer = styled.div`
   gap: 0.5rem;
   input { width: auto; }
 `;
-
 const ButtonGroup = styled.div`
   display: flex;
   flex-direction: column;
@@ -101,7 +97,6 @@ const WhatsappButton = styled.a`
   transition: background 0.3s ease;
   &:hover { background: #1ebe5d; }
 `;
-
 const Confirmation = styled.div`
   background: rgba(255,255,255,0.1);
   padding: 2rem;
@@ -110,7 +105,6 @@ const Confirmation = styled.div`
   font-size: 1.2rem;
   color: #fab521;
 `;
-
 const FooterContainer = styled.footer`
   background: #0f1820;
   color: #fff;
@@ -121,8 +115,7 @@ const FooterContainer = styled.footer`
   justify-content: center;
   gap: 3rem;
   border-top: 10px solid rgba(255,255,255,0.1);
-
-  @media (max-width: 768px) {
+  @media (max-width: 768px){
     flex-direction: column;
     padding: 0.5rem 1rem 0.25rem;
     gap: 0.5rem;
@@ -133,7 +126,7 @@ const LeftColumn = styled.div`
   flex: 0 1 auto;
   text-align: center;
   margin-top: 20px;
-  @media (min-width:769px) { margin-right: 4rem; }
+  @media (min-width:769px){ margin-right: 4rem; }
   h3 { margin: 0 0 0.5rem; font-size: 1.5rem; }
   p {
     margin: 0.2rem 0;
@@ -168,11 +161,16 @@ const BottomBar = styled.div`
 export default function Contacto() {
   const [sent, setSent] = useState(false);
 
+  // Inicializa EmailJS al montar el componente
+  useEffect(() => {
+    init('epKrRD5PRmq675FeG');
+  }, []);
+
   const handleSubmit = e => {
     e.preventDefault();
     sendForm(
       'service_pir22qf',    // Service ID
-      'template_sg8eqka',   // Template ID
+      'template_uyrzj1s',   // Template ID
       e.target,
       'epKrRD5PRmq675FeG'   // Public Key
     )
@@ -205,34 +203,42 @@ export default function Contacto() {
           </Confirmation>
         ) : (
           <Form onSubmit={handleSubmit}>
+            {/* Campos del formulario */}
             <FormGroup>
               <Label htmlFor="user_name">Nombre</Label>
-              <Input id="user_name" name="user_name" type="text" required />
+              <Input id="user_name" name="name" type="text" required />
             </FormGroup>
+
             <FormGroup>
               <Label htmlFor="user_phone">Teléfono</Label>
-              <Input id="user_phone" name="user_phone" type="tel" required />
+              <Input id="user_phone" name="phone" type="tel" required />
             </FormGroup>
+
             <FormGroup>
               <Label htmlFor="user_email">Correo</Label>
               <Input id="user_email" name="user_email" type="email" required />
             </FormGroup>
+
             <FormGroup>
               <Label htmlFor="subject">Asunto</Label>
-              <Input id="subject" name="subject" type="text" required />
+              <Input id="subject" name="title" type="text" required />
             </FormGroup>
+
             <FormGroup>
               <Label htmlFor="message">Mensaje</Label>
               <TextArea id="message" name="message" required />
             </FormGroup>
+
             <FormGroup>
               <Label htmlFor="attachment">Adjuntar archivo (opcional)</Label>
               <FileInput id="attachment" name="attachment" type="file" />
             </FormGroup>
+
             <CheckboxContainer>
               <Input id="policy" name="policy" type="checkbox" required />
               <Label htmlFor="policy">Acepto la política de tratamiento de datos</Label>
             </CheckboxContainer>
+
             <ButtonGroup>
               <SubmitButton type="submit">Enviar</SubmitButton>
               <WhatsappButton
@@ -250,14 +256,22 @@ export default function Contacto() {
       <FooterContainer id="footer">
         <LeftColumn>
           <h3>DC LAWYERS ASSOCIATES SAS</h3>
-          <p><i className="fas fa-phone" aria-hidden="true" /> 3218581603</p>
-          <p><i className="fas fa-envelope" aria-hidden="true" /> abogadosdc@outlook.com</p>
+          <p><i className="fas fa-phone" /> 3218581603</p>
+          <p><i className="fas fa-envelope" /> abogadosdc@outlook.com</p>
         </LeftColumn>
         <RightColumn>
-          <SocialIcon href="https://instagram.com/dc_abogados_soluciones"><i className="fab fa-instagram" /></SocialIcon>
-          <SocialIcon href="https://facebook.com/dc_abogados_soluciones"><i className="fab fa-facebook-f" /></SocialIcon>
-          <SocialIcon href="https://tiktok.com/@dc_abogados_soluciones"><i className="fab fa-tiktok" /></SocialIcon>
-          <SocialIcon href="https://youtube.com/c/dc_abogados_soluciones"><i className="fab fa-youtube" /></SocialIcon>
+          <SocialIcon href="https://instagram.com/dc_abogados_soluciones">
+            <i className="fab fa-instagram" />
+          </SocialIcon>
+          <SocialIcon href="https://facebook.com/dc_abogados_soluciones">
+            <i className="fab fa-facebook-f" />
+          </SocialIcon>
+          <SocialIcon href="https://tiktok.com/@dc_abogados_soluciones">
+            <i className="fab fa-tiktok" />
+          </SocialIcon>
+          <SocialIcon href="https://youtube.com/c/dc_abogados_soluciones">
+            <i className="fab fa-youtube" />
+          </SocialIcon>
         </RightColumn>
         <BottomBar>
           DC Lawyers Associates © 2025, página creada por{' '}
