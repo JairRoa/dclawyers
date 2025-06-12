@@ -5,7 +5,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   // 1) Punto de entrada principal de la aplicación
-  entry: './src/index.jsx',
+  entry: path.resolve(__dirname, 'src/index.jsx'),
 
   // 2) Carpeta de salida (dist) y nombre del bundle generado
   output: {
@@ -25,36 +25,36 @@ module.exports = {
       {
         // Transpila archivos .js y .jsx con Babel
         test: /\.(js|jsx)$/,
-        use: 'babel-loader',
-        exclude: /node_modules/
+        exclude: /node_modules/,
+        use: 'babel-loader'
       },
       {
         // Permite importar archivos CSS desde src/
         test: /\.css$/,
         use: ['style-loader', 'css-loader']
       }
-      // Si más adelante importas imágenes/fuentes desde src/,
-      // añade aquí tu regla de Asset Modules.
+      // Para imágenes, fuentes u otros assets, considera Asset Modules
     ]
   },
 
   // 5) Plugins
   plugins: [
-    // 5.1) HtmlWebpackPlugin
+    // Genera index.html en /dist
     new HtmlWebpackPlugin({
-      template: './public/index.html',
+      template: path.resolve(__dirname, 'public/index.html'),
       filename: 'index.html'
     }),
 
-    // 5.2) CopyWebpackPlugin
+    // Copia todo public/ excepto index.html a /dist
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: path.resolve(__dirname, 'public', 'img'),
-          to: 'img'
+          from: path.resolve(__dirname, 'public'),
+          to: path.resolve(__dirname, 'dist'),
+          globOptions: {
+            ignore: ['**/index.html']
+          }
         }
-        // Si el favicon estuviera en public/ y no en public/img:
-        // { from: path.resolve(__dirname, 'public', 'favicon.ico'), to: '' }
       ]
     })
   ],
@@ -62,19 +62,16 @@ module.exports = {
   // 6) Configuración del Dev Server
   devServer: {
     static: {
-      directory: path.resolve(__dirname, 'public'),
+      directory: path.resolve(__dirname, 'dist'),
       publicPath: '/',
-      serveIndex: false      // <— Desactiva el listado de directorios para evitar el URI malformed
+      watch: true
     },
     open: true,
     hot: true,
     port: 3000,
-
-    // Fuerza que cualquier ruta no existente pase a index.html
-    // para que React Router maneje el enrutado SPA sin 404
     historyApiFallback: true
   },
 
-  // 7) Modo de Webpack
-  mode: 'development'
+  // 7) Modo de Webpack (development o production)
+  mode: process.env.NODE_ENV === 'production' ? 'production' : 'development'
 };
