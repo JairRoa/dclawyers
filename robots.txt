@@ -1,0 +1,19 @@
+# robots.txt para dclawyers.vercel.app
+
+# 1) Reglas generales para todos los bots
+User-agent: *
+# Permitimos todo el sitio (quitar la línea o poner "/" tras Disallow si quisieras bloquear algo)
+Disallow:
+
+# 2) Enlaces a tu sitemap y dominio principal
+Sitemap: https://dclawyers.vercel.app/sitemap.xml
+Host: dclawyers.vercel.app
+
+# 3) (Opcional) Bloquear rutas internas
+#Disallow: /api/
+#Disallow: /private/
+
+# 4) (Opcional) Excepciones para Googlebot
+#User-agent: Googlebot
+#Allow: /
+
