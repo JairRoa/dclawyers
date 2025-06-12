@@ -16,8 +16,6 @@ const ALL_PAGES = [
   { key: 'Inicio',        path: '/' },
   { key: 'Servicios',     path: '/servicios' },
   { key: 'Quienes somos', path: '/biografia' },
-  { key: 'Blog',          path: '/blog' },
-  { key: 'Galería',       path: '/galeria' },
   { key: 'Contacto',      path: '/contacto' }
 ];
 

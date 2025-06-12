@@ -399,9 +399,7 @@ export default function Servicios() {
       <FooterContainer id="footer">
         <LeftColumn>
           <h3>DC LAWYERS ASSOCIATES SAS</h3>
-          <p>
-            <DocIcon /> Nit 901.128.012-8
-          </p>
+ 
           <p>
             <PhoneIcon /> Tel 3218581603
           </p>
